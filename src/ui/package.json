@@ -1,0 +1,14 @@
+{
+  "name": "Calcifer",
+  "version": "1.0.0",
+  "description": "the Local knowledge base LLM agent UI based on tailewindcss",
+  "homepage": "https://Daily-Prophet.github.io/Calcifer/",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "license": "Apache",
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
+  }
+}

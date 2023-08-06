@@ -8,7 +8,7 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     path: path.resolve(__dirname, docsPath),
-    filename: "bundle.js",
+    filename: "main.js",
   },
   module: {
     rules: [
@@ -23,6 +23,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      excludeChunks: ["main"],
+      inject: "body",
     }),
     new CopyPlugin({
       patterns: [

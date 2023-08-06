@@ -1,0 +1,20 @@
+{
+  "name": "Calcifer",
+  "lang": "en-us",
+  "short_name": "Calcifer",
+  "description": "\"I'm the supreme fire demon knows everything about the attendance report!\"",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "theme_color": "#2f3d58",
+  "background_color": "#2f3d58",
+  "orientation": "any",
+  "catagories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/icon512.png",
+      "sizes": "512x512"
+    }
+  ],
+  "edge_side_panel": {}
+}

@@ -31,7 +31,7 @@ function updateStreamingResponse(messagId, chunk) {
 }
 
 async function fetchStreamingResponse(query, messageId) {
-  const response = await fetch("http://localhost:8000/ask", {
+  const response = await fetch(process.env.BACKEND_ASK_API_URL, {
     method: "POST",
     headers: {
       Accept: "application/json",

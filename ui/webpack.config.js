@@ -1,8 +1,11 @@
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const path = require("path");
 const docsPath = "../docs/";
+
+require("dotenv").config({ path: "./src/.env" });
 
 module.exports = {
   entry: "./src/main.js",
@@ -25,6 +28,9 @@ module.exports = {
       template: "./src/index.html",
       excludeChunks: ["main"],
       inject: "body",
+    }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env),
     }),
     new CopyPlugin({
       patterns: [

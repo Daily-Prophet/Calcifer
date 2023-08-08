@@ -1,2 +1,11 @@
+**/.env
+
+# ui node packages
 **/node_modules/
 **/package-lock.json
+
+# backend python venv
+**/include/
+**/Lib/
+**/Scripts/
+**/.pyvenv.cfg

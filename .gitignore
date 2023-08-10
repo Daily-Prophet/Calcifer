@@ -9,4 +9,6 @@
 **/Lib/
 **/Scripts/
 **/__pycache__/
+**/share/
+**/.hypothesis/
 **/.pyvenv.cfg

@@ -9,12 +9,14 @@
   "theme_color": "#2f3d58",
   "background_color": "#2f3d58",
   "orientation": "any",
-  "catagories": ["education", "productivity"],
+  "catagories": ["productivity"],
   "icons": [
     {
       "src": "/icon512.png",
       "sizes": "512x512"
     }
   ],
-  "edge_side_panel": {}
+  "edge_side_panel": {
+    "preferred_width": 520
+  }
 }

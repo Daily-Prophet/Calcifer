@@ -12,4 +12,7 @@ cd .\backend
 python -m venv myenv
 .\myenv\Scripts\activate
 pip install -r requirements.txt
+
+// init jupyter-lab to cook vectordb data
+jupyter-lab
 ```

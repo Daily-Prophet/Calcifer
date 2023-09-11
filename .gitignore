@@ -12,3 +12,4 @@
 **/share/
 **/.hypothesis/
 **/.pyvenv.cfg
+**/myenv/

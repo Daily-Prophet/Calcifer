@@ -7,6 +7,9 @@ https://daily-prophet.github.io/Calcifer/
 
 ## Prepare backend development environment
 
+1. Put the `.env` file in the backend folder
+2. Execute the following command line:
+
 ```python
 cd .\backend
 python -m venv myenv

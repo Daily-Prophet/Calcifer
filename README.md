@@ -5,17 +5,32 @@
 Try it out:
 https://daily-prophet.github.io/Calcifer/
 
-## Prepare backend development environment
+## Setup backend development environment
 
-1. Put the `.env` file in the backend folder
-2. Execute the following command line:
+1. Put the `.env` & `document.md` file in `backend` folder
+2. Make sure your python version >= `3.10`, then execute the following command line:
 
-```python
+```shell
 cd .\backend
 python -m venv myenv
 .\myenv\Scripts\activate
 pip install -r requirements.txt
+```
 
-// init jupyter-lab to cook vectordb data
+3. start jupyter notebook in `backend` folder:
+
+```shell
 jupyter-lab
+```
+
+4. start the backend service:
+
+```shell
+python main.py
+```
+
+5. You can use this curl command to test the backend service:
+
+```shell
+curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" -d '{"question": "who are you?"}' http://localhost:8000/ask
 ```

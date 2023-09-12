@@ -11,5 +11,5 @@
 **/__pycache__/
 **/share/
 **/.hypothesis/
-**/.pyvenv.cfg
 **/myenv/
+**/.ipynb_checkpoints/

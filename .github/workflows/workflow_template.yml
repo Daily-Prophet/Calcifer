@@ -20,7 +20,7 @@ env:
   AZURE_WEBAPP_NAME: calcifer # set this to your application's name
   WORKING_DIRECTORY: "./backend" # set this to the path to your path of working directory inside github repository, defaults to the repository root
   PYTHON_VERSION: "3.10"
-  STARTUP_COMMAND: "uvicorn main:app" # set this to the startup command required to start the gunicorn server. default it is empty
+  STARTUP_COMMAND: "uvicorn main:app --host 0.0.0.0 --port 80" # set this to the startup command required to start the gunicorn server. default it is empty
 
 jobs:
   build-and-deploy:
@@ -42,7 +42,7 @@ jobs:
           python -m venv --copies antenv
           source antenv/bin/activate
           pip install setuptools
-          pip install --prefer-binary -r requirements.txt
+          pip install -r requirements.txt
       # Azure login
       - uses: azure/login@v1
         with:

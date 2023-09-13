@@ -1,7 +1,7 @@
 import asyncio
 import uvicorn
 
-from dotenv import load_dotenv,find_dotenv
+from dotenv import load_dotenv, find_dotenv
 from typing import AsyncIterable, Awaitable
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -17,6 +17,7 @@ from langchain.chains import RetrievalQA
 from langchain.prompts import ChatPromptTemplate
 import openai
 import os
+
 # load_dotenv()
 load_dotenv(find_dotenv())
 
@@ -83,10 +84,10 @@ async def call_openai(question: str) -> AsyncIterable[str]:
     #     qa_chain.arun(question), callback.done
     # )
     res_docs = local_vectordb.similarity_search(question)
-    context = '\n'.join([doc.page_content for doc in res_docs])
+    context = "\n".join([doc.page_content for doc in res_docs])
     customer_messages = prompt_template.format_messages(
-    context=context,
-    question=question)
+        context=context, question=question
+    )
     print(customer_messages[0].content)
     coroutine = wait_done(
         chat_model.agenerate(messages=[[customer_messages[0]]]), callback.done
@@ -115,6 +116,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
 
 
 @app.post("/ask")

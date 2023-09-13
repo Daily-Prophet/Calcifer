@@ -14,7 +14,7 @@ https://daily-prophet.github.io/Calcifer/
 cd .\backend
 python -m venv myenv
 .\myenv\Scripts\activate
-pip install --prefer-binary -r requirements.txt
+pip install --prefer-binary -r dev_requirements.txt
 ```
 
 3. start jupyter notebook in `backend` folder:

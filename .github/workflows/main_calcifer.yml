@@ -8,11 +8,12 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+    paths:
+      - ".github/**"
+      - "backend/**"
 
 env:
   WORKING_DIRECTORY: "./backend"
-  STARTUP_COMMAND: "uvicorn main:app"
 
 jobs:
   build:
@@ -67,5 +68,4 @@ jobs:
           app-name: "calcifer"
           slot-name: "Production"
           package: ${{ env.WORKING_DIRECTORY }}
-          startup-command: ${{ env.STARTUP_COMMAND }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C9C5C4E3E3A34DDFB4565CF00B25B992 }}

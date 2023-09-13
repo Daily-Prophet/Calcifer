@@ -44,8 +44,10 @@ jobs:
         with:
           name: python-app
           path: |
-            ${{ env.WORKING_DIRECTORY }}
+            . 
             !venv/
+            !docs/
+            !ui/
 
   deploy:
     runs-on: ubuntu-latest

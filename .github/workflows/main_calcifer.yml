@@ -35,7 +35,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: pip install -r prod_requirements.txt
+        run: pip install -r requirements.txt
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
@@ -67,5 +67,4 @@ jobs:
         with:
           app-name: "calcifer"
           slot-name: "Production"
-          package: ${{ env.WORKING_DIRECTORY }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C9C5C4E3E3A34DDFB4565CF00B25B992 }}

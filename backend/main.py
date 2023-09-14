@@ -120,7 +120,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "deploy success!"}
+    return {"message": "deploy success~"}
 
 
 @app.post("/ask")

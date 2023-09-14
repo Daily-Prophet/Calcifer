@@ -32,7 +32,7 @@ function updateStreamingResponse(messagId, chunk) {
 
 async function fetchStreamingResponse(query, messageId) {
   // process.env.BACKEND_ASK_API_URL
-  const response = await fetch("http://20.157.73.69:8000/ask", {
+  const response = await fetch("https://calciferwebapp.azurewebsites.net/ask", {
     method: "POST",
     headers: {
       Accept: "application/json",

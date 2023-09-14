@@ -7,45 +7,48 @@ on:
   push:
     branches:
       - main
+    paths:
+      - ".github/**"
+      - "backend/**"
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Log in to registry
-      uses: docker/login-action@v2
-      with:
-        registry: https://calciferacr.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_40f25f38221542eda9e43bb5fc462373 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_04f5c9882b694d03ae9bf1b04f0ac33c }}
+      - name: Log in to registry
+        uses: docker/login-action@v2
+        with:
+          registry: https://calciferacr.azurecr.io/
+          username: ${{ secrets.AzureAppService_ContainerUsername_40f25f38221542eda9e43bb5fc462373 }}
+          password: ${{ secrets.AzureAppService_ContainerPassword_04f5c9882b694d03ae9bf1b04f0ac33c }}
 
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: calciferacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_40f25f38221542eda9e43bb5fc462373 }}/fastapi-demo:${{ github.sha }}
-        file: ./Dockerfile
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: calciferacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_40f25f38221542eda9e43bb5fc462373 }}/fastapi-demo:${{ github.sha }}
+          file: ./backend/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'production'
+      name: "production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'calciferwebapp'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_2570f56a0a1344938bead8585d64e923 }}
-        images: 'calciferacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_40f25f38221542eda9e43bb5fc462373 }}/fastapi-demo:${{ github.sha }}'
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "calciferwebapp"
+          slot-name: "production"
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_2570f56a0a1344938bead8585d64e923 }}
+          images: "calciferacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_40f25f38221542eda9e43bb5fc462373 }}/fastapi-demo:${{ github.sha }}"

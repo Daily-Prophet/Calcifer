@@ -3,6 +3,7 @@
 # ui node packages
 **/node_modules/
 **/package-lock.json
+**/yarn.lock
 
 # backend python venv
 **/include/
@@ -12,4 +13,6 @@
 **/share/
 **/.hypothesis/
 **/myenv/
+**/venv/
 **/.ipynb_checkpoints/
+**/document.md

@@ -35,7 +35,7 @@ jobs:
           context: ./backend
           push: true
           tags: calciferacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_40f25f38221542eda9e43bb5fc462373 }}/fastapi-demo:${{ github.sha }}
-          file: ./Dockerfile
+          file: ./backend/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest

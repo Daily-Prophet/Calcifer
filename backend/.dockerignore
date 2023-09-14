@@ -1,0 +1,9 @@
+.git*
+**/*.pyc
+.venv/
+ui/
+docs/
+**/.venv/
+**/*.ipynb
+**/.ipynb_checkpoints/
+**/dev_requirements.txt

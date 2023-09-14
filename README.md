@@ -23,10 +23,10 @@ pip install --prefer-binary -r dev_requirements.txt
 jupyter-lab
 ```
 
-4. start the backend service:
+4. we can use this command to run the server, if you want to auto reload serivce when develop, add --reload:
 
 ```shell
-python main.py
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 5. You can use this curl command to test the backend service:

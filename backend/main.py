@@ -134,5 +134,7 @@ async def ask(body: dict):
 # Mount static files. But if we host statics with Github Pages, we don't need fastAPI host for us again
 # app.mount("/", StaticFiles(directory="../docs", html=True), name="ui")
 
-# if __name__ == "__main__":
-#     uvicorn.run(host="0.0.0.0", port=8000, app=app)
+
+# we can use this command to run the server, if you want to auto reload serivce when develop, add --reload
+# uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+

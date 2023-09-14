@@ -14,5 +14,8 @@
 **/.hypothesis/
 **/myenv/
 **/venv/
+**/prodenv/
+**/devenv/
 **/.ipynb_checkpoints/
 **/document.md
+**/pyvenv.cfg

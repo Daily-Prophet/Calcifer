@@ -12,8 +12,8 @@ https://daily-prophet.github.io/Calcifer/
 
 ```shell
 cd .\backend
-python -m venv myenv
-.\myenv\Scripts\activate
+python -m venv devenv
+.\devenv\Scripts\activate
 pip install --prefer-binary -r dev_requirements.txt
 ```
 

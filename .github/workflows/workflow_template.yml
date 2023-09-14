@@ -18,9 +18,8 @@ on:
 # 2. Change these variables for your configuration:
 env:
   AZURE_WEBAPP_NAME: calcifer # set this to your application's name
-  WORKING_DIRECTORY: "./backend" # set this to the path to your path of working directory inside github repository, defaults to the repository root
+  WORKING_DIRECTORY: "backend" # set this to the path to your path of working directory inside github repository, defaults to the repository root
   PYTHON_VERSION: "3.10"
-  STARTUP_COMMAND: "uvicorn main:app --host 0.0.0.0 --port 80" # set this to the startup command required to start the gunicorn server. default it is empty
 
 jobs:
   build-and-deploy:
@@ -56,8 +55,8 @@ jobs:
       - uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C9C5C4E3E3A34DDFB4565CF00B25B992 }}
           package: ${{ env.WORKING_DIRECTORY }}
-          startup-command: ${{ env.STARTUP_COMMAND }}
       # Azure logout
       - name: logout
         run: |

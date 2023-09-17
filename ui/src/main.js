@@ -1,4 +1,8 @@
 const loadingSpanString = `<span id="loading-animation" class="loading loading-dots loading-sm translate-y-2"></span>`;
+const messagesCache = [];
+const sendButton = document.querySelector("#chat-form button[type='submit']");
+const apiEndpoint = "https://calciferwebapp.azurewebsites.net/ask";
+// const apiEndpoint = "http://localhost:8000/ask";
 
 function getCurrentDateTime() {
   const now = new Date();
@@ -14,32 +18,51 @@ function getCurrentDateTime() {
 }
 document.getElementById("init-agent-datetime").innerHTML = getCurrentDateTime();
 
+function chatBubbleTextContentFormatter(chatBubbleTextContent) {
+  return chatBubbleTextContent
+    .replace(/\n/g, "<br>")
+    .replace(/Summary:/g, "<br><br>Summary:<br>")
+    .replace(/Answer:/g, "<br><br>Answer:<br>")
+    .replace(/Transferable team:/g, "<br><br>Transferable team:<br>")
+    .replace(/Possible Reason:/g, "<br><br>Reason:<br>")
+    .replace(/Reason:/g, "<br><br>Reason:<br>")
+    .replace(/Next:/g, "<br><br>Next:<br>")
+    .replace(/\d+\.\s/g, (match) => `<br><br>${match}`);
+}
+
 function clearMessageLoadingStatus(messagId) {
   const chatBubble = document.getElementById(messagId);
   if (chatBubble) {
-    chatBubble.innerHTML = chatBubble.textContent;
+    chatBubble.innerHTML = chatBubbleTextContentFormatter(
+      chatBubble.textContent
+    );
   }
+  sendButton.disabled = false;
+  return chatBubble.innerHTML;
 }
 
 function updateStreamingResponse(messagId, chunk) {
   const chatBubble = document.getElementById(messagId);
   const chatContainer = document.getElementById("chat-container");
   if (chatBubble) {
-    chatBubble.innerHTML = `${chatBubble.textContent}${chunk}${loadingSpanString}`;
+    const formattedContext = chatBubbleTextContentFormatter(
+      chatBubble.textContent
+    );
+    chatBubble.innerHTML = `${formattedContext}${chunk}${loadingSpanString}`;
     chatContainer.scrollTop = chatContainer.scrollHeight;
   }
 }
 
 async function fetchStreamingResponse(query, messageId) {
-  // process.env.BACKEND_ASK_API_URL
-  const response = await fetch("https://calciferwebapp.azurewebsites.net/ask", {
+  messagesCache.push({ role: "user", content: query });
+  const response = await fetch(apiEndpoint, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      question: query,
+      messages: messagesCache,
     }),
   });
   const reader = response.body.getReader();
@@ -52,7 +75,8 @@ async function fetchStreamingResponse(query, messageId) {
     const responseChunk = decoder.decode(value);
     updateStreamingResponse(messageId, responseChunk);
   }
-  clearMessageLoadingStatus(messageId);
+  const currentAssistantMessage = clearMessageLoadingStatus(messageId);
+  messagesCache.push({ role: "assistant", content: currentAssistantMessage });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -64,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
 
     if (inputText.value.trim()) {
+      sendButton.disabled = true;
       addMessage("user", inputText.value);
       const responseMessageId = showWaitingAnimation();
       fetchStreamingResponse(inputText.value, responseMessageId);
@@ -92,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="chat-header">
             <time class="text-xs opacity-50">${getCurrentDateTime()}</time>
           </div>
-          <div id= "${messageId}" class="chat-bubble">
+          <div id="${messageId}" class="chat-bubble">
             ${loadingSpanString}
           </div>
       </div>`;
